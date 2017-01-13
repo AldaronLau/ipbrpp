@@ -1,0 +1,6 @@
+[package]
+name = "ipbrpp"
+version = "0.1.0"
+authors = ["Jeron Aldaron Lau <deadbeef.jal@gmail.com>"]
+
+[dependencies]
