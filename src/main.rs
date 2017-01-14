@@ -26,11 +26,11 @@ fn read_message(socket: net::UdpSocket) -> (Vec<u8>, std::net::SocketAddr) {
 pub fn send_message(send_addr: net::SocketAddr, target: net::SocketAddr,
 	data: &Vec<u8>)
 {
-	let socket = socket(send_addr);
-	socket.set_broadcast(true).unwrap();
+	let socket1 = socket(send_addr);
+	socket1.set_broadcast(true).unwrap();
 	println!("Sending data to {}", target);
-	let result = socket.send_to(&data, target);
-	drop(socket);
+	let result = socket1.send_to(&data, target);
+	drop(socket1);
 	match result {
 		Ok(amt) => println!("Sent {} bytes", amt),
 		Err(err) => panic!("Write error: {}", err)
@@ -67,7 +67,7 @@ fn server() {
 }
 
 fn broadcast(what: String) {
-	let ip = net::Ipv4Addr::new(0, 0, 0, 0); // All possibilities
+	let ip = net::Ipv4Addr::new(255, 255, 255, 255); // All on subnet
 	let send_addr = net::SocketAddrV4::new(ip, 8142);
 	let message: Vec<u8> = what.into_bytes();
 
